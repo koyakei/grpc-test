@@ -5,6 +5,15 @@ import "setting.proto";
 
 option java_multiple_files = true;
 
+
+message Message {
+  MessageContent message_content = 1;
+  string received_at = 2;
+  repeated Offer offer = 3;
+  int64 id = 4;
+}
+
+
 message MessageContent {
   string name = 1;
   int64 owner_id = 2;
@@ -14,11 +23,6 @@ message MessageContent {
   StartAndEndAt start_and_end_at = 6;
 }
 
-message Message {
-  MessageContent message_content = 1;
-  string received_at = 2;
-  repeated Offer offer = 3;
-}
 
 message Offer{
   string name = 1;
@@ -73,3 +77,13 @@ message Receiver {
   string name = 2;
 }
 
+message MessageActivity{
+  int64 id = 1;
+  string created_at = 2;
+
+}
+
+enum MessageActivityType{
+  SHOW = 0;
+  TAP = 1;
+}

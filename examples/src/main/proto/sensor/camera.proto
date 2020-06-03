@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package jp.pinable.grpc.sensor;
+import "geometric.proto";
+import "setting.proto";
+
+option java_multiple_files = true;
+
+message CameraReceivedLog {
+  GeometricTopology geometricTopology = 1;
+  string received_at = 2;
+  CameraIdentifier camera_identifier = 3;
+  StartAndEndAt start_and_end_recording_at = 4;
+}
+
+message CameraIdentifier{
+  int64 id = 1;
+}

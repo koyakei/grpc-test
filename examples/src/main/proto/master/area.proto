@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package jp.pinable.grpc;
+import "setting.proto";
+import "master/sign.proto";
+import "message/message.proto";
+import "geometric.proto";
+import "sensor/sensor.proto";
+
+
+option java_multiple_files = true;
+
+message Area{
+  int64 id = 1;
+  string name = 2;
+}
+
+message Location{
+  int64 id = 1;
+  string name = 2;
+  repeated Area area = 3;
+  repeated Message message = 4;
+  repeated Sensor sensor = 10;
+  GeometricTopology geometric_topology = 12;
+}
+
+message Page {
+
+}

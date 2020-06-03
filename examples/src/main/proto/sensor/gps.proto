@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package jp.pinable.grpc.sensor;
+import "geometric.proto";
+
+option java_multiple_files = true;
+
+message GPSReceivedLog {
+  GeometricTopology geometricTopology = 1;
+  string received_at = 2;
+}

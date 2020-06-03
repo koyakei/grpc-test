@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package jp.pinable.grpc.sensor;
+import "geometric.proto";
+
+option java_multiple_files = true;
+
+message LineBeaconIdentifier{
+  string hwid = 1;
+}
+
+message LineBeaconUserAgentReceivingInfo {
+  LineBeaconIdentifier sensor_identifier = 1;
+  string received_at = 3;
+}

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package jp.pinable.grpc.master;
+import "setting.proto";
+import "master/global_user.proto";
+
+option java_multiple_files = true;
+
+message UserAgent{
+  GlobalUser global_user = 1;
+  int64 id = 2;
+  string name = 3;
+  string settings = 4;
+  string locale = 5;
+  OS os = 6;
+  string os_version = 7;
+  string browser_name = 8;
+  string browser_version = 9;
+}
+
+message UserAgentIdentifier{
+  string IDFA = 1;
+}
+
+enum OS{
+  I_OS = 0;
+  ANDROID = 1;
+  WINDOWS = 2;
+  MAC = 3;
+  LINUX = 4;
+}

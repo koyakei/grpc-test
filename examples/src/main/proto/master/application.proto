@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package jp.pinable.grpc.master;
+import "setting.proto";
+import "message.proto";
+import "master/user_agent.proto";
+
+option java_multiple_files = true;
+
+message ApplicationIdentifier {
+  string android_package_name = 1;
+  string ios_package_name = 4;
+  string fire_base_project_id = 2;
+  string apple_push_notification_service_id = 3;
+}
+
+message Application {
+  ApplicationIdentifier application_identifier = 1;
+  string  registered_at = 2;
+  Sender application_owner = 3;
+}
+
+message InstalledApplication {
+  UserAgent user_agent = 1;
+  int64 id = 2;
+  InstalledApplicationIdentifier installed_application_identifier = 3;
+  string application_version = 4;
+  string settings = 5;
+}
+
+message InstalledApplicationIdentifier{
+  string fire_base_ID = 2;
+  string apple_push_notification_service_token = 3;
+}
+
+message ApplicationActivity {
+  State state = 1;
+  string executed_at = 2;
+}
+
+enum State {
+  BOOT = 0;
+  KILL = 1;
+  BACKGROUND = 2;
+  FOREGROUND = 3;
+}

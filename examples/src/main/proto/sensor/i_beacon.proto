@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package jp.pinable.grpc.sensor;
+
+option java_multiple_files = true;
+
+message TxPower{
+  float tx_power = 1;
+  float rssi = 2;
+  float rssi1m =3;
+}
+
+message IBeacon{
+  IBeaconIdentifier i_beacon_identifier = 1;
+  string name = 2;
+}
+
+message IBeaconIdentifier {
+  string uuid = 1;
+  string major = 2;
+  string minor = 3;
+}
+
+message IBeaconUserAgentReceivingInfo {
+  IBeaconIdentifier i_beacon_identifier = 1;
+  float tx_power = 2;
+  string received_at = 3;
+}
