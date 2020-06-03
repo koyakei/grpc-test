@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package jp.pinable.grpc;
+import "setting.proto";
+
+option java_multiple_files = true;
+
+message MessageContent {
+  string name = 1;
+  int64 owner_id = 2;
+  string body = 3;
+  string view_style = 4;
+  repeated string image_link = 5;
+  StartAndEndAt start_and_end_at = 6;
+}
+
+message Message {
+  MessageContent message_content = 1;
+  string received_at = 2;
+  repeated Offer offer = 3;
+}
+
+message Offer{
+  string name = 1;
+  string expire_at = 2;
+  string used_at = 3;
+}
+
+message ViewStyle {
+  string size = 1;
+  string position = 2; //表示位置
+  enum Type {
+    PUSH = 0;
+    POP = 1;
+    WEB_VIEW = 2;
+    BANNER = 3;
+  }
+}
+
+message SendCondition{
+  repeated DayOfTheWeek day_of_the_week = 1;
+  StartAndEndAt start_and_end_at = 2;
+  int32 week_in_month = 3; // 第n週
+  string start_time_at = 4;
+  string end_time_at = 5;
+  TargetSet white = 6;
+  TargetSet black = 7;
+}
+
+message ReceiveCondition{
+  repeated DayOfTheWeek day_of_the_week = 1;
+  StartAndEndAt start_and_end_at = 2;
+  int32 week_in_month = 3; // 第n週
+  string start_time_at = 4;
+  string end_time_at = 5;
+  TargetSet white = 6;
+  TargetSet black = 7;
+}
+
+message TargetSet{
+  repeated int64 app_id = 6;
+  repeated int64 user_agent_id = 7;
+  repeated int64 global_user = 8;
+}
+
+message Sender {
+  int64 id = 1;
+  string name = 2;
+}
+
+message Receiver {
+  int64 id = 1;
+  string name = 2;
+}
+

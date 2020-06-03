@@ -15,13 +15,14 @@
 syntax = "proto3";
 
 package jp.pinable.grpc;
-
+import "sensor.proto";
+import "message.proto";
 option java_multiple_files = true;
 
 // The greeting service definition.
 service UserAgentReceivedSensorLog {
   // Sends a greeting
-  rpc SendLog (stream SendLogRequest) returns (stream MessageReply);
+  rpc SendLog (stream SendLogRequest) returns (stream Message);
 }
 
 // The request message containing the user's name.
@@ -46,19 +47,4 @@ message IBeaconReceivedSensorInfo{
 message LineBeaconReceivedSensorInfo{
   string line_id =1;
   LineBeaconIdentifier line_beacon = 2;
-}
-
-message LineBeaconIdentifier {
-  string hwid = 1;
-}
-
-message IBeaconIdentifier {
-  string uuid = 1;
-  string major = 2;
-  string minor = 3;
-}
-
-// The response message containing the greetings
-message MessageReply {
-  string message = 1;
 }

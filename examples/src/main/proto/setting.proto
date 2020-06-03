@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package jp.pinable.grpc;
+
+option java_multiple_files = true;
+
+message Locale {
+  string locale = 1;
+}
+
+message StartAndEndAt {
+  string start_at = 1;
+  string end_at = 2;
+}
+
+enum DayOfTheWeek {
+    SUN = 0;
+    MON = 1;
+    TUE = 2;
+    WED = 3;
+    THR = 4;
+    FRI = 5;
+    SAT = 6;
+}
