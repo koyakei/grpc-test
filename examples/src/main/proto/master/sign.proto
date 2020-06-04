@@ -7,8 +7,30 @@ import "master/area.proto";
 import "message/message.proto";
 import "sensor/sensor.proto";
 import "geometric.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 
 option java_multiple_files = true;
+
+//一つのエリアを選択して、そこにサインをくっつけるときのAPIの使い方を考える。
+// ユースケースを先でも良い。
+service SignService{
+  rpc CreateSign(Sign) returns (google.protobuf.Empty){
+    option(google.api.http) = {
+      post: "sign";
+    };
+  }
+
+  // Sign 側の join と area からの　join がある。
+  // これは追加系なのか？
+  // 減らす法もこちら？
+  //
+  rpc JoinArea(Sign) returns (Sign){
+    option(google.api.http) = {
+      patch: "universe/area_sign";
+    };
+  }
+}
 
 message Sign{
   int64 id = 1;
@@ -21,9 +43,25 @@ message Sign{
 }
 
 message Point{
-  GeometricPoint geometric_point = 1;
+  oneof sign{
+    Sign parent = 3;
+  }
+  //カンバンの大きさ
+  //どこのカンバンになんのメッセージを送るのかはメッセージドメインで決める。
+  GeometricTopology geometric_topology = 1;
+  PointOwner point_owner = 2;
+}
+
+message PointOwner {
+  string name = 1;
+  int64 id = 2;
 }
 
 message Button{
-
+  // 親を呼ぶ依存性の逆転
+  oneof sign{
+    Sign parent = 3;
+  }
+  // 受信者とボタンのオーナーって違うかもしれないなぁ
+  Receiver message_receiver = 1;
 }

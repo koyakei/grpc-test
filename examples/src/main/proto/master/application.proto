@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package jp.pinable.grpc;
 import "setting.proto";
-import "message.proto";
+import "message/message.proto";
 import "master/user_agent.proto";
 
 option java_multiple_files = true;
@@ -17,7 +17,7 @@ message ApplicationIdentifier {
 message Application {
   ApplicationIdentifier application_identifier = 1;
   string  registered_at = 2;
-  Sender application_owner = 3;
+  Receiver application_owner = 3;
 }
 
 message InstalledApplication {

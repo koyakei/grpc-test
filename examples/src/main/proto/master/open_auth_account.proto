@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package jp.pinable.grpc.master;
+package jp.pinable.grpc;
 import "setting.proto";
 import "master/global_user.proto";
 

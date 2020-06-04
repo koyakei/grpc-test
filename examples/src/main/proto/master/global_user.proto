@@ -1,10 +1,12 @@
 syntax = "proto3";
 
-package jp.pinable.grpc.master;
+package jp.pinable.grpc;
 import "setting.proto";
 import "master/user_agent.proto";
+import "master/open_auth_account.proto";
 option java_multiple_files = true;
 
 message GlobalUser {
   repeated UserAgent user_agents = 1;
+  OpenAuthAccount open_auth_account = 2;
 }

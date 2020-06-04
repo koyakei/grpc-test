@@ -13,10 +13,7 @@ option java_multiple_files = true;
 
 
 service UserAgentService {
-    option (google.api.http) = {
-      put: "user_agent";
-    };
-  };
+
 
   rpc GetUserAgent(UserAgentIdentifier) returns(UserAgent){
     option(google.api.http) = {
