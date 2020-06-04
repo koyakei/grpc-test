@@ -1,22 +1,15 @@
 syntax = "proto3";
 
-package jp.pinable.grpc.sensor;
+package jp.pinable.grpc;
 
 import "geometric.proto";
 import "sensor/i_beacon.proto";
 import "sensor/line_beacon.proto";
-import "message.proto";
+import "message/message.proto";
 import "master/user_agent.proto";
-import ""
 option java_multiple_files = true;
 
-message UserAgentReceivedSensorInfo{
-  string received_at = 1;
-  oneof sensor_identifier{
-    IBeaconUserAgentReceivingInfo i_beacon_received_sensor_info = 2;
-    LineBeaconUserAgentReceivingInfo line_beacon_received_sensor_info = 3;
-  }
-}
+
 
 enum SensorType {
   I_BEACON = 0;

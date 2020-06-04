@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package jp.pinable.grpc;
+import "setting.proto";
+import "google/protobuf/timestamp.proto";
+option java_multiple_files = true;
+
+
+
+
+
+message Offer{
+  int64 id = 5;
+  string name = 1;
+  google.protobuf.Timestamp expire_at = 2;
+}
+
+
+// Gifteeこれ個別じゃなくて外部に在庫を抱えているクーポンサービス一般として扱うかな
+message OfferSupply {
+  string item_sku = 1;
+  string view_frame = 2;
+  enum OfferSupplier{
+    GIFTEE = 0;
+    SWITCH_SMILE = 1;
+  }
+}
+

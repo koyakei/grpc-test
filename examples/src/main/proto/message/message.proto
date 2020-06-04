@@ -3,14 +3,21 @@ syntax = "proto3";
 package jp.pinable.grpc;
 import "setting.proto";
 import "google/protobuf/timestamp.proto";
+import "message/offer.proto";
 option java_multiple_files = true;
-
 
 message Message {
   MessageContent message_content = 1;
   string received_at = 2;
   repeated Offer offer = 3;
   int64 id = 4;
+}
+
+enum MessageActionType{
+  SHOW = 0;
+  PREVIEW = 1; //動作がディープタッチと長押しで同じプレビューになる　表示結果を記録するべきか？表示結果しか無理だろうな。
+  SWIPE_OUT = 2;
+
 }
 
 message MessageContent {
@@ -22,23 +29,12 @@ message MessageContent {
   StartAndEndAt start_and_end_at = 6;
 }
 
-message Offer{
-  int64 id = 5;
-  string name = 1;
-  google.protobuf.Timestamp expire_at = 2;
-}
-
-// Gifteeこれ個別じゃなくて外部に在庫を抱えているクーポンサービス一般として扱うかな
-message OuterOfferSupply {
-
-}
-
 
 message ViewStyle {
   string size = 1;
   string position = 2; //表示位置
   enum Type {
-    PUSH = 0;
+    PUSH_NOTIFICATION = 0;
     POP = 1;
     WEB_VIEW = 2;
     BANNER = 3;

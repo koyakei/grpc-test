@@ -1,11 +1,26 @@
 syntax = "proto3";
 
-package jp.pinable.grpc.sensor;
+package jp.pinable.grpc;
+import "setting.proto";
+import "master/global_user.proto";
+import "google/protobuf/empty.proto";
+import "sensor/sensor.proto";
+import "google/protobuf/timestamp.proto";
+import "master/application.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto";
+import "master/application.proto";
+import "master/user_agent.proto";
+import "master/area.proto";
+import "message/message.proto";
+import "sensor/sensor.proto";
+import "sensor/i_beacon.proto";
+import "sensor/line_beacon.proto";
 
 option java_multiple_files = true;
 
 message TxPower{
-  float tx_power = 1;
+  float tx_power = 1
   float rssi = 2;
   float rssi1m =3;
 }
@@ -21,8 +36,8 @@ message IBeaconIdentifier {
   string minor = 3;
 }
 
-message IBeaconUserAgentReceivingInfo {
+message LineBeaconUserAgentReceivedInfo {
   IBeaconIdentifier i_beacon_identifier = 1;
   float tx_power = 2;
-  string received_at = 3;
+  google.protobuf.Timestamp  received_at = 3;
 }

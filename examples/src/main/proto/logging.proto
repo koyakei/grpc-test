@@ -12,6 +12,10 @@ import "google/protobuf/empty.proto";
 import "master/application.proto";
 import "master/user_agent.proto";
 import "master/area.proto";
+import "message/message.proto";
+import "sensor/sensor.proto";
+import "sensor/i_beacon.proto";
+import "sensor/line_beacon.proto";
 option java_multiple_files = true;
 
 
@@ -36,11 +40,41 @@ service UserAgentLog{
       post: "user_agent/page/activity_log";
     };
   }
+  rpc UserAgentReceiveMessageLog (ReceivedMessage)
+      returns (google.protobuf.Empty){
+    option(google.api.http) = {
+      post: "user_agent/message/activity_log";
+    };
+  }
+
+  rpc UserAgentReceivedSensorInfoLog ( UserAgentReceivedSensorInfo)
+      returns (Message){
+    option(google.api.http) = {
+      post: "user_agent/sensor/received_infolog";
+    };
+  }
+}
+
+message ReceivedMessage{
+  Message message = 1;
+  google.protobuf.Timestamp received_at = 2;
+  MessageContent message_content = 3;
+  UserAgent user_agent = 4;
+  MessageActionType message_action_type = 5;
+}
+
+message UserAgentReceivedSensorInfo{
+  google.protobuf.Timestamp send_at = 1;
+  oneof sensor_identifier{
+    IBeaconUserAgentReceivedInfo i_beacon_user_agent_received_info = 2;
+    LineBeaconUserAgentReceivedInfo line_beacon_user_agent_received_info = 3;
+  }
+  UserAgent user_agent = 4;
 }
 
 message PageVisitedLog {
-    google.protobuf.Timestamp created_at = 1;
-    Page page = 2;
+  google.protobuf.Timestamp created_at = 1;
+  Page page = 2;
 }
 
 
@@ -73,8 +107,4 @@ message SendLogRequest {
   repeated UserAgentReceivedSensorInfo received_sensor_info = 2;
 }
 
-message UserAgentReceivedSensorInfo {
-  google.protobuf.Timestamp received_at = 1;
-  float tx_power = 2;
-  UserAgent user_agent = 3;
-}
+
