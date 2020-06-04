@@ -5,22 +5,10 @@ package jp.pinable.grpc.sensor;
 import "geometric.proto";
 import "sensor/i_beacon.proto";
 import "sensor/line_beacon.proto";
-import "message/message.proto";
+import "message.proto";
+import "master/user_agent.proto";
+import ""
 option java_multiple_files = true;
-
-
-// The greeting service definition.
-service UserAgentReceivedSensorLog {
-  // Sends a greeting
-  rpc SendLog (stream SendLogRequest) returns (stream Me);
-}
-
-
-// The request message containing the user's name.
-message SendLogRequest {
-  string send_at = 1;
-  repeated UserAgentReceivedSensorInfo received_sensor_info = 2;
-}
 
 message UserAgentReceivedSensorInfo{
   string received_at = 1;
@@ -29,6 +17,7 @@ message UserAgentReceivedSensorInfo{
     LineBeaconUserAgentReceivingInfo line_beacon_received_sensor_info = 3;
   }
 }
+
 enum SensorType {
   I_BEACON = 0;
   LINE_BEACON = 1;

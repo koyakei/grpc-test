@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package jp.pinable.grpc.master;
+import "setting.proto";
+import "master/global_user.proto";
+
+option java_multiple_files = true;
+
+
+service OpenAuthAccountService {
+  rpc UpdateOpenAuthAccount(OpenAuthAccount) returns(google.protobuf.Empty){
+    option (google.api.http) = {
+      put: "user_agent";
+    };
+  };
+
+  rpc GetOpenAuthAccountUserAgent(OpenAuthIdentifier) returns(OpenAuthAccount){
+    option(google.api.http) = {
+      get: "user_agent";
+    };
+  }
+
+  rpc CreateOpenAuthAccount(OpenAuthAccount) returns(OpenAuthAccount){
+    option(google.api.http) = {
+      post: "user_agent";
+    };
+  }
+
+  rpc DeleteOpenAuthAccount(OpenAuthIdentifier) returns(OpenAuthAccount){
+    option(google.api.http) = {
+      delete: "user_agent";
+    };
+  }
+}
+
+message OpenAuthAccount {
+  int64 id = 1;
+  GlobalUser global_user = 2;
+  OpenAuthIdentifier social_identifier = 3;
+}
+
+message OpenAuthIdentifier{
+  string token = 1;
+  enum Provider {
+    FACEBOOK = 0;
+    GOOGLE = 1;
+    AMAZON = 2;
+    LINE = 3;
+    APPLE = 4;
+  }
+}

@@ -3,27 +3,112 @@ syntax = "proto3";
 package jp.pinable.grpc;
 import "setting.proto";
 import "master/sign.proto";
-import "message/message.proto";
+import "message.proto";
 import "geometric.proto";
 import "sensor/sensor.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/type.proto";
+import "google/protobuf/api.proto";
 
 
 option java_multiple_files = true;
 
+service LocationService {
+  rpc UpdateLocation(Location) returns(Location){
+    option (google.api.http) = {
+      put: "location";
+    };
+  };
+
+  rpc GetLocation(LocationIdentifier) returns(Area){
+    option(google.api.http) = {
+      get: "location";
+    };
+  }
+
+  rpc CreateLocation(Location) returns(Area){
+    option(google.api.http) = {
+      post: "user_agent";
+    };
+  }
+
+  rpc DeleteLocation(LocationIdentifier) returns(Area){
+    option(google.api.http) = {
+      delete: "user_agent";
+    };
+  }
+}
+
+service PageService {
+  rpc UpdatePage(Page) returns(Page){
+    option (google.api.http) = {
+      put: "location";
+    };
+  };
+
+  rpc GetPage(PageIdentifier) returns(Page){
+    option(google.api.http) = {
+      get: "location";
+    };
+  }
+
+  rpc CreatePage(Page) returns(Page){
+    option(google.api.http) = {
+      post: "user_agent";
+    };
+  }
+
+  rpc DeletePage(PageIdentifier) returns(PageIdentifier){
+    option(google.api.http) = {
+      delete: "user_agent";
+    };
+  }
+}
+
 message Area{
   int64 id = 1;
   string name = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
+  oneof option{
+    Location location = 5;
+    Page page = 6;
+  }
 }
 
 message Location{
-  int64 id = 1;
-  string name = 2;
-  repeated Area area = 3;
+  Area area = 3;
   repeated Message message = 4;
   repeated Sensor sensor = 10;
   GeometricTopology geometric_topology = 12;
+  LocationIdentifier location_identifier = 13;
+  oneof option{
+     Shop shop = 14;
+  }
+}
+
+message LocationIdentifier {
+  string postal_code = 1;
+  string address = 3;
+  string google_map_location_id = 4;
+}
+
+//ビジネス単位のロケーション
+//電話番号とか　タグで表現しづらいものもここにのせるか。
+message Shop {
+  string telephone_number = 2;
+  string email_address = 4;
+  string business_owner = 5;
 }
 
 message Page {
+  int64 id = 1;
+  string name = 2;
+  Area area = 3;
+  PageIdentifier page_identifier = 4;
+}
 
+message PageIdentifier{
+  string uri = 1;
 }

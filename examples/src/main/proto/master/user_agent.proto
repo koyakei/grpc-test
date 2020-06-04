@@ -1,10 +1,50 @@
 syntax = "proto3";
 
-package jp.pinable.grpc.master;
+package jp.pinable.grpc;
 import "setting.proto";
 import "master/global_user.proto";
-
+import "google/protobuf/empty.proto";
+import "sensor/sensor.proto";
+import "google/protobuf/timestamp.proto";
+import "master/application.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto"
 option java_multiple_files = true;
+
+
+service UserAgentService {
+    option (google.api.http) = {
+      put: "user_agent";
+    };
+  };
+
+  rpc GetUserAgent(UserAgentIdentifier) returns(UserAgent){
+    option(google.api.http) = {
+      get: "user_agent";
+    };
+  }
+
+  rpc CreateUserAgent(UserAgentIdentifier) returns(UserAgent){
+    option(google.api.http) = {
+      post: "user_agent";
+    };
+  }
+
+  rpc DeleteUserAgent(UserAgentIdentifier) returns(UserAgent){
+    option(google.api.http) = {
+      delete: "user_agent";
+    };
+  }
+
+  // log はcreateだけだから全部サービスでまとめちゃう
+  rpc UserAgentReceivedSensorLog (stream SendLogRequest) returns (stream Message){
+    option(google.api.http) = {
+      post: "user_agent/received_sensor_info_log";
+    };
+  };
+
+
+}
 
 message UserAgent{
   GlobalUser global_user = 1;

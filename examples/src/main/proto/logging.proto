@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package jp.pinable.grpc;
+import "setting.proto";
+import "master/global_user.proto";
+import "google/protobuf/empty.proto";
+import "sensor/sensor.proto";
+import "google/protobuf/timestamp.proto";
+import "master/application.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto";
+import "master/application.proto";
+import "master/user_agent.proto";
+import "master/area.proto";
+option java_multiple_files = true;
+
+
+service UserAgentLog{
+  rpc UserAgentInstalledApplicationActivityLog(InstalledApplicationActivity)
+      returns (google.protobuf.Empty){
+    option(google.api.http) = {
+      post: "user_agent/installed_application/activity_log";
+    };
+  }
+
+  rpc UserAgentOfferActivityLog(OfferActivity)
+      returns (google.protobuf.Empty){
+    option(google.api.http) = {
+      post: "user_agent/offer/activity_log";
+    };
+  }
+
+  rpc UserAgentPageVisitingLog (PageVisitedLog)
+      returns (google.protobuf.Empty){
+    option(google.api.http) = {
+      post: "user_agent/page/activity_log";
+    };
+  }
+}
+
+message PageVisitedLog {
+    google.protobuf.Timestamp created_at = 1;
+    Page page = 2;
+}
+
+
+message InstalledApplicationActivity {
+  google.protobuf.Timestamp received_at = 1;
+  InstalledApplication installed_application = 2;
+  enum ActionType{
+    INSTALL = 0;
+    UNINSTALL = 1;
+    BOOT = 2;
+    BACKGROUND = 3; //現在バックグラウンド
+    FOREGROUND = 4; //現在フォアグラウンド
+  }
+}
+
+message OfferActivity{
+  OfferActivityType offer_activity_type = 1;
+  google.protobuf.Timestamp created_at = 2;
+  int64 offer_id = 3;
+  UserAgent user_agent = 4;
+  enum OfferActivityType {
+    USED = 0;
+    RECEIVED = 1;
+  }
+}
+
+// The request message containing the user's name.
+message SendLogRequest {
+  string send_at = 1;
+  repeated UserAgentReceivedSensorInfo received_sensor_info = 2;
+}
+
+message UserAgentReceivedSensorInfo {
+  google.protobuf.Timestamp received_at = 1;
+  float tx_power = 2;
+  UserAgent user_agent = 3;
+}

@@ -1,6 +1,0 @@
-syntax = "proto3";
-
-package jp.pinable.grpc.master;
-import "setting.proto";
-
-option java_multiple_files = true;

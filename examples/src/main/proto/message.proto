@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package jp.pinable.grpc;
 import "setting.proto";
-
+import "google/protobuf/timestamp.proto";
 option java_multiple_files = true;
 
 
@@ -13,7 +13,6 @@ message Message {
   int64 id = 4;
 }
 
-
 message MessageContent {
   string name = 1;
   int64 owner_id = 2;
@@ -23,12 +22,17 @@ message MessageContent {
   StartAndEndAt start_and_end_at = 6;
 }
 
-
 message Offer{
+  int64 id = 5;
   string name = 1;
-  string expire_at = 2;
-  string used_at = 3;
+  google.protobuf.Timestamp expire_at = 2;
 }
+
+// Gifteeこれ個別じゃなくて外部に在庫を抱えているクーポンサービス一般として扱うかな
+message OuterOfferSupply {
+
+}
+
 
 message ViewStyle {
   string size = 1;
