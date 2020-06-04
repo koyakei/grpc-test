@@ -41,8 +41,7 @@ service UserAgentService {
     option(google.api.http) = {
       post: "user_agent/received_sensor_info_log";
     };
-  };
-
+  }
 
 }
 

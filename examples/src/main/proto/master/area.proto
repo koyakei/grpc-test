@@ -3,7 +3,7 @@ syntax = "proto3";
 package jp.pinable.grpc;
 import "setting.proto";
 import "master/sign.proto";
-import "message.proto";
+import "message/message.proto";
 import "geometric.proto";
 import "sensor/sensor.proto";
 import "google/api/annotations.proto";

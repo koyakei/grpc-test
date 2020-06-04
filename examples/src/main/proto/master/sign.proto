@@ -4,7 +4,7 @@ package jp.pinable.grpc.master;
 
 import "setting.proto";
 import "master/area.proto";
-import "message.proto";
+import "message/message.proto";
 import "sensor/sensor.proto";
 import "geometric.proto";
 
